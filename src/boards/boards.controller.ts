@@ -11,7 +11,7 @@ import { CreateBoardDto } from './dto/create-board.dto';
 export class BoardsController {
     constructor(private boardsService: BoardsService){}
 
-     //전체 게시물 목록 가져오기
+     //전체 게시물 목록+댓글 가져오기
      @Get()
      getAllBoard(){
          return this.boardsService.getAllBoard();
