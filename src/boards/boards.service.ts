@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/auth/user.entity';
-import { getRepository } from 'typeorm';
+import { Reply } from 'src/reply/reply.entity';
+import { createQueryBuilder, getRepository } from 'typeorm';
 import { Board } from './board.entity';
 import { BoardRepository } from './board.repository';
 import { CreateBoardDto } from './dto/create-board.dto';
@@ -15,13 +16,14 @@ export class BoardsService {
 
     //전체 게시물 목록 가져오기
     async getAllBoard(){
-        const board = await getRepository(Board)
+        const board = await this.boardRepository
         .createQueryBuilder('board')
-        .leftJoinAndSelect('replys','reply','board.Id = reply.boadId')
-        .getMany();
+        .leftJoinAndSelect(Reply,'reply','board.id = reply.boardId')
+        .getRawMany();
 
         return board;
     }
+    //.leftJoinAndSelect(Reply,'reply','board.id = reply.boardId')
     //.where('board.userId = :id', {id:user})
     
     //게시물 등록
