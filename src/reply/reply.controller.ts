@@ -14,9 +14,8 @@ export class ReplyController {
      //댓글 등록
      @Post('/:id')//게시물 아이디 
      createReply(@Body() createReplyDto: CreateReplyDto,
-     @GetUser() user:User, 
-     @Param('id') boardId:number): Promise<Reply>{
-         return this.replyService.createReply(createReplyDto, user, boardId);
+     @GetUser() user:User): Promise<Reply>{
+         return this.replyService.createReply(createReplyDto, user);
      }
 
     

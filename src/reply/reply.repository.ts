@@ -5,14 +5,13 @@ import { Reply } from "./reply.entity";
 
 @EntityRepository(Reply)
 export class ReplyRepository extends Repository<Reply>{
-    async createReply(createReplyDto: CreateReplyDto, user: User, boardId: number): Promise<Reply>{
+    async createReply(createReplyDto: CreateReplyDto, user: User): Promise<Reply>{
     const {title, content} = createReplyDto;
        
        const reply = this.create({
            title,
            content,
-           user,
-           boardId
+           user
        })
         await this.save(reply);
         return reply;

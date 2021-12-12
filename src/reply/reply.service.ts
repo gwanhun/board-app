@@ -13,7 +13,7 @@ export class ReplyService {
     ){}
 
      //댓글 등록
-     createReply(createReplyDto: CreateReplyDto, user: User, boardId: number): Promise<Reply>{
-        return this.replyRepository.createReply(createReplyDto, user, boardId);
+     createReply(createReplyDto: CreateReplyDto, user: User): Promise<Reply>{
+        return this.replyRepository.createReply(createReplyDto, user);
     }
 }

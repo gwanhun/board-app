@@ -7,9 +7,6 @@ export class Reply extends BaseEntity{
     @PrimaryGeneratedColumn()
     id:number;
 
-    @Column('int')
-    boardId: number;
-
     @Column('varchar')
     title: string;
 
@@ -19,7 +16,7 @@ export class Reply extends BaseEntity{
     @ManyToOne(type => User, user => user.replys, { eager: false })
     user: User;
 
-    @ManyToOne(type => Board, user => user.replys)
+    @ManyToOne(type => Board, board => board.replys)
     board: Board;
 
     

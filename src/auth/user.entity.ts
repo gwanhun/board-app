@@ -15,10 +15,10 @@ export class User extends BaseEntity{
     password: string;
 
     @OneToMany(type => Reply, reply => reply.user, { eager: true })
-    replys: Reply[]
+    replys: Reply[];
 
     @OneToMany(type => Board, board => board.user, { eager: true })
-    boards: Board[]
+    boards: Board[];
 
     
 }

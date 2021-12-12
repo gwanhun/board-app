@@ -26,8 +26,8 @@ export class Board extends BaseEntity {
     @ManyToOne(type => User, user => user.boards, { eager: false })
     user: User;
 
-    @OneToMany(type => Board, board => board.replys)
-    replys: Reply[]
+    @OneToMany(type => Reply, reply => reply.board)
+    replys: Reply[];
     
     
 
