@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/auth/get-user.decorator';
 import { User } from 'src/auth/user.entity';
@@ -14,8 +14,14 @@ export class ReplyController {
      //댓글 등록
      @Post('/:id')//게시물 아이디 
      createReply(@Body() createReplyDto: CreateReplyDto,
-     @GetUser() user:User): Promise<Reply>{
-         return this.replyService.createReply(createReplyDto, user);
+     @GetUser() user:User,
+     @Param('id') boardId: number): Promise<Reply>{
+         return this.replyService.createReply(createReplyDto, user, boardId);
+     }
+
+     @Get()
+     getAllBoard(){
+         return this.replyService.getAllBoard();
      }
 
     

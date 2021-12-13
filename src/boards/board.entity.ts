@@ -23,7 +23,7 @@ export class Board extends BaseEntity {
       })
       updatedAt:Date;
 
-    @ManyToOne(type => User, user => user.boards, { eager: false })
+    @ManyToOne(type => User, user => user.boards)
     user: User;
 
     @OneToMany(type => Reply, reply => reply.board)

@@ -14,10 +14,10 @@ export class User extends BaseEntity{
     @Column('varchar')
     password: string;
 
-    @OneToMany(type => Reply, reply => reply.user, { eager: true })
+    @OneToMany(type => Reply, reply => reply.user)
     replys: Reply[];
 
-    @OneToMany(type => Board, board => board.user, { eager: true })
+    @OneToMany(type => Board, board => board.user)
     boards: Board[];
 
     
