@@ -1,6 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { connect } from 'http2';
+import { userInfo } from 'os';
+import { GetUser } from 'src/auth/get-user.decorator';
 import { User } from 'src/auth/user.entity';
+import { UserRepository } from 'src/auth/user.repository';
 import { Reply } from 'src/reply/reply.entity';
 import { Connection, createQueryBuilder, getRepository } from 'typeorm';
 import { Board } from './board.entity';
@@ -16,17 +20,40 @@ export class BoardsService {
 
     //전체 게시물 목록 가져오기
     async getAllBoard(){
-        const boards = await this.boardRepository.find({ relations: ["replys", "user"]});
+        const boards = 
+         getRepository(Board)
+         .createQueryBuilder("board")
+         .leftJoinAndSelect("board.user", "user")
+         .leftJoinAndSelect("board.replys", "reply")
+         .select(["board","user.id","user.username","reply"])
+         .getMany();
+
+
+        
+
         return boards;
     }
     //await this.boardRepository.find();
     //.leftJoinAndSelect(Reply,'reply','board.id = reply.boardId')
     //.where('board.userId = :id', {id:user})
     /*
+    const boards = await this.boardRepository.find({ 
+            select: ["id", "title", "content", "createdAt", "updatedAt",], 
+            relations: ["replys","user"]});
+
+        
+
+        return boards;
+
+
      const board = await this.boardRepository
         .createQueryBuilder('board')
         .leftJoinAndSelect(Reply,'reply','board.id = reply.board.id')
         .getRawMany();
+
+
+        
+            select: ["id", "title", "content", "createdAt", "updatedAt", "replys","user"], 
     */
     
     //게시물 등록

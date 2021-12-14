@@ -13,7 +13,7 @@ export class Reply extends BaseEntity{
     @Column('varchar')
     content: string;
 
-    @ManyToOne(type => User, user => user.replys, { eager: false })
+    @ManyToOne(type => User, user => user.replys)
     user: User;
 
     @ManyToOne(type => Board, board => board.replys)
